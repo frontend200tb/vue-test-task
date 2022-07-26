@@ -1,5 +1,5 @@
 # vue-test-task
-2022 Иван Каширин. Тестовое задание на vue, tailwind, axios, xlsx
+2022 Иван Каширин. Тестовое задание на Vue, Tailwind, Axios, OpenLibrary, SheetJS
 
 https://frontend200tb.github.io/vue-test-task/
 
@@ -39,3 +39,4 @@ https://codesandbox.io/s/vue-test-task-kgymy5
 3. https://v2.tailwindcss.com/docs
 4. https://github.com/SheetJS/sheetjs
 5. https://github.com/gitbrent/xlsx-js-style
+6. https://docs.sheetjs.com/docs
