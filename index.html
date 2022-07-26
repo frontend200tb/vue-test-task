@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="author" content="Иван Каширин">
+  <meta name="copyright" content="200TB Web Studio">
+  <meta name="description" content="2022 Тестовое задание на Vue, Tailwind, Axios, OpenLibrary, SheetJS">
+  <meta name="keywords" content="frontend200tb, Vue, Tailwind, Axios, OpenLibrary, SheetJS">
+<title>My first Vue app</title>
+<link
+  href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+<script src="https://unpkg.com/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+
+<div id="app">
+<div id="page" v-bind:class="pageClass">
+<div id="container" v-bind:class="containerClass">
+
+
+  <div id="up">
+    <header v-bind:class="headerClass">
+      frontend200tb Тестовое задание на Vue, Tailwind, Axios, OpenLibrary, SheetJS
+    </header>
+
+    <main>
+      <div id="search" v-bind:class="searchClass">
+        <input type="text" v-model="message" v-bind:class="inputClass">
+        <button v-if="books == null" v-on:click="getBooks" v-bind:class="btnClass">{{ loadBooks }}</button>
+        <button v-else v-on:click="books = null" v-bind:class="btnClass">{{ removeBooks }}</button>
+        <button id="sheetjsexport" v-if="books && books.length > 0" v-bind:class="btnClass" v-on:click="downloadXlsx">Выгрузить в Excel</button>
+      </div>
+
+      <div id="sort" v-if="books && books.length > 1" v-bind:class="sortClass">
+        <button v-bind:class="btnClass" v-on:click="sortAZ">A-Z</button>
+        <button v-bind:class="btnClass" v-on:click="sortZA">Z-A</button>        
+      </div>
+
+      <div id="results" v-if="books" v-bind:class="results">
+        <table id="TableToExport" v-bind:class="tableClass">
+          <caption class="p-8">{{ getTableTitle }}</caption>
+          <colgroup>
+            <col style="background-color: #c4daff;">
+            <col style="background-color: #a8ad5c;">
+            <col style="background-color: #bb966c;">
+            <col style="background-color: #4ca8a8;">
+            <col style="background-color: #4ca86b;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th v-bind:class="thClass">№</th>
+              <th v-bind:class="thClass">Обложка</th>
+              <th v-bind:class="thClass">Авторы</th>
+              <th v-bind:class="thClass">Название</th>
+              <th v-bind:class="thClass">Год</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th colspan="5">{{ getBooksNumber }}</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr v-for="(book, index) in books" v-bind:class="trClass">
+              <td v-bind:class="tdClass">{{ index + 1 }}</td>
+
+              <td v-if="book.isbn" v-bind:class="tdClass">
+                <img v-bind:src="coverLink(book.isbn[0])" alt="">
+              </td>
+              <td v-else v-bind:class="tdClass">Без обложки</td>
+
+              <td v-if="book.author_name" v-bind:class="tdClass">{{ getAuthors(book.author_name) }}</td>
+              <td v-else v-bind:class="tdClass">Без автора</td>
+              
+              <td v-if="book.title" v-bind:class="tdClass">{{ book.title }}</td>
+              <td v-else v-bind:class="tdClass">Без названия</td>
+
+              <td v-if="book.publish_year" v-bind:class="tdClass">{{ book.publish_year[0] }}</td>
+              <td v-else v-bind:class="tdClass"> - </td>
+            </tr>            
+          </tbody>
+
+        </table>
+      </div>
+
+    </main>
+  </div><!-- up -->
+
+
+  <div id="down">
+    <footer v-bind:class="footerClass">
+      <a href="https://github.com/frontend200tb" title="https://github.com/frontend200tb" v-bind:class="aClass">https://github.com/frontend200tb</a>
+      <a href="https://frontend200tb.github.io/rsschool-cv/" title="https://frontend200tb.github.io/rsschool-cv/" v-bind:class="aClass">https://frontend200tb.github.io/rsschool-cv/</a>
+    </footer>
+  </div><!-- down -->
+
+
+</div><!-- container -->
+</div><!-- page -->
+</div><!-- app -->
+
+
+<script src="js/app.js"></script>
+</body>
+</html>
